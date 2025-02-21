@@ -19,4 +19,25 @@ public class Frase
 
 	[ForeignKey(nameof(UserId))]
 	public ApplicationUser User { get; set; }
+
+	public bool Actualizar(string mensaje, string autor, string[] etiquetas)
+	{
+		var cambios = false;
+		if (this.Mensaje != mensaje)
+		{
+			this.Mensaje = mensaje;
+			cambios = true;
+		}
+		if (this.Autor != autor)
+		{
+			this.Autor = autor;
+			cambios = true;
+		}
+		if (this.Etiquetas != Etiquetas)
+		{
+			this.Etiquetas = Etiquetas;
+			cambios = true;
+		}
+		return cambios;
+	}
 }
