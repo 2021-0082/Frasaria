@@ -4,6 +4,7 @@ namespace Frasaria.Data.Request;
 
 public class FraseRequest
 {
+	public int Id { get; set; }
 	[Required]
 	public string Mensaje { get; set; }
 

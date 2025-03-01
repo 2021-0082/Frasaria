@@ -1,0 +1,21 @@
+﻿
+<div class="col-md-6 mb-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <blockquote class="blockquote mb-3">
+                <p class="mb-2">@frase.Mensaje</p>
+                <footer class="blockquote-footer">@frase.Autor</footer>
+            </blockquote>
+            <div>
+                @foreach (var etiqueta in frase.Etiquetas)
+                {
+                    <span class="badge bg-primary me-1">@etiqueta</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public FraseResponse frase { get; set; }
+}

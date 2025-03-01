@@ -1,0 +1,71 @@
+﻿@page "/frases"
+@rendermode InteractiveServer
+
+@* <div class="container mt-4">
+    <h2 class="text-center">Frases Inspiradoras</h2>
+    <div class="row">
+        @if (frases.Any())
+        {
+
+            @foreach (var frase in frases)
+            {
+                <Frase frase="frase"></Frase>
+            }
+        }
+        else
+        {
+            <h3>Uppps, no encontramos ninguna frase que mostrarte :(</h3>
+        }
+
+    </div>
+</div>
+ *@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Frases Inspiradoras</h2>
+            <!-- Barrra de busqueda -->
+            <div class="input-group mt-3 mb-3">
+                <input @bind="filter" type="text" class="form-control" placeholder="Buscar frases...">
+                <div class="input-group-append">
+                    <button @onclick="Buscar" class="btn btn-outline-secondary" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (frases.Any())
+        {
+            @foreach (var frase in frases)
+            {
+                <Frase frase="frase"></Frase>
+            }
+        }
+        else
+        {
+            <div class="col">
+                <h3 class="text-center">¡Ups! No encontramos ninguna frase para mostrar.</h3>
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    public string filter { get; set; } = "";
+    private List<FraseResponse> frases = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        this.frases = await frasesServ.ObtenerTodas(filter) ?? [];
+
+    }
+    private async Task Buscar()
+    {
+        this.frases = await frasesServ.ObtenerTodas(filter) ?? [];
+        StateHasChanged();
+
+    }
+}

@@ -1,10 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Frasaria.Data.Response;
+using Frasaria.Data.Request;
 
 namespace Frasaria.Data.Identities;
 
 public class Frase
 {
+	private FraseRequest frase;
+
+	public Frase(FraseRequest frase)
+	{
+		this.frase = frase;
+	}
+	public Frase()
+	{
+		
+	}
 	[Key]
 	public int Id { get; set; }
 
@@ -39,5 +51,18 @@ public class Frase
 			cambios = true;
 		}
 		return cambios;
+	}
+
+	public FraseResponse ToRespuesta()
+	{
+		return new FraseResponse()
+		{
+			id = this.Id,
+			Mensaje = this.Mensaje,
+			Autor = this.Autor,
+			Etiquetas = this.Etiquetas,
+			UserId = this.UserId
+		};
+
 	}
 }
